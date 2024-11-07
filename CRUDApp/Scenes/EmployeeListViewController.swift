@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Network
 
 class EmployeeListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -83,29 +82,5 @@ extension EmployeeListViewController {
             employeeProfileInfoVC.selectedEmployee = selectedEmployee
             self.navigationController?.pushViewController(employeeProfileInfoVC, animated: true)
         }
-    }
-}
-
-extension UIViewController {
-    
-    func isInternetAvailable() -> Bool {
-        let monitor = NWPathMonitor()
-        let queue = DispatchQueue.global(qos: .background)
-        monitor.start(queue: queue)
-        
-        var isConnected = false
-        monitor.pathUpdateHandler = { path in
-            if path.status == .satisfied {
-                isConnected = true
-            } else {
-                isConnected = false
-            }
-        }
-        
-        // Wait for network status to be updated
-        sleep(1)  // Sleep to allow network status to be updated before returning
-        
-        monitor.cancel()
-        return isConnected
     }
 }
